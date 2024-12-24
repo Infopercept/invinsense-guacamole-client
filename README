@@ -110,7 +110,7 @@ It is the frontend interface of Apache Guacamole. To do this, you must install t
 # sudo apt install tomcat9 tomcat9-admin tomcat9-common tomcat9-user -y 
 
 Now you must move the Guacamole Web client to the Tomcat web directory. To do this, run the command below:
-# sudo mv guacamole-1.5.4.war /var/lib/tomcat9/webapps/guacamole.war
+# sudo mv guacamole-1.5.6.war /var/lib/tomcat9/webapps/guacamole.war
 
 To apply the changes, restart Apache Guacamole and Tomcat services:
 # sudo systemctl restart tomcat9 guacd
@@ -135,12 +135,12 @@ Then, you must extract the downloaded file and copy it to the /etc/guacamole/lib
 
 Next, you must download the Apache Guacamole JDBC AUTH Plugin. To do this, you can run the command below:
 
-# sudo wget https://downloads.apache.org/guacamole/1.5.4/binary/guacamole-auth-jdbc-1.5.5.tar.gz
+# sudo wget https://downloads.apache.org/guacamole/1.5.6/binary/guacamole-auth-jdbc-1.5.5.tar.gz
 
 You should note that download the version with the Guacamole version you have installed.
 Now extract the downloaded file and copy it to /etc/guacamole/extensions/ directory:
-# sudo tar -xf guacamole-auth-jdbc-1.5.4.tar.gz
-# sudo mv guacamole-auth-jdbc-1.5.4/mysql/guacamole-auth-jdbc-mysql-1.5.4.jar /etc/guacamole/extensions/
+# sudo tar -xf guacamole-auth-jdbc-1.5.6.tar.gz
+# sudo mv guacamole-auth-jdbc-1.5.6/mysql/guacamole-auth-jdbc-mysql-1.5.6.jar /etc/guacamole/extensions/
 
 step 6 : Create a Guacamole Database and User
 At this point, you must log in to your MariaDB shell and create a user and database for Apache Guacamole on Ubuntu 22.04.
@@ -159,7 +159,7 @@ Once you are done, exit from your MariaDB shell:
 
 Import SQL Schema Files and Create Properties Files For Guacamole
 At this point, you must navigate to the MySQL Schema directory with the command below:
-# cd guacamole-auth-jdbc-1.5.4/mysql/schema
+# cd guacamole-auth-jdbc-1.5.6/mysql/schema
 
 From there, run the command below to import the SQL schema files to the MySQL database:
 # cat *.sql | mysql -u root -p guac_db
