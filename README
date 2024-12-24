@@ -38,31 +38,163 @@ guacamole-client, Maven will take care of the proper build order.
 Apache Guacamole is built using Maven. Building Guacamole compiles all classes
 and packages them into a deployable .war file. This .war file can be installed
 and deployed under servlet containers like Apache Tomcat or Jetty.
-
+---------------------------------
+Application Build 
+---------------------------
 1) Run mvn package
 
-    $ mvn package
+    $ mvn package 
+The error you're seeing indicates that the JAVA_HOME environment variable is either not set or pointing to the wrong location. Additionally, the message NB: JAVA_HOME should point to a JDK not a JRE implies that the JAVA_HOME should point to the JDK (Java Development Kit) and not just the JRE (Java Runtime Environment). The error you're seeing indicates that the JAVA_HOME environment variable is either not set or pointing to the wrong location.
+Additionally, the message NB: JAVA_HOME should point to a JDK not a JRE implies that the JAVA_HOME should point to the JDK (Java Development Kit) and not just the JRE (Java Runtime Environment).
 
-    Maven will download any needed dependencies for building the .jar file.
-    Once all dependencies have been downloaded, the .war file will be
-    created in the guacamole/target/ subdirectory of the current directory.
+   
+2) Check for .war file in specific subdirectories: Some submodules might generate their own .war files. For example, check if there is any .war file in:
+ $ ll guacamole-client/guacamole/target/
 
-2) Copy the .war file as directed in the instructions provided with
-   your servlet container.
+3) Replace  name for war file 
+  example:  guacamole-x.x.0.war to guacamole.war
 
-   Apache Tomcat, Jetty, and other servlet containers have specific and
-   varying locations that .war files must be placed for the web
-   application to be deployed.
+4) Copy the .war File to the Tomcat Server
 
-   You will likely need to do this as root.
+5) Restart Tomcat from the Command Line
+  # systemctl restart tomcat9 guacd 
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Full Steps to Install Apache Guacamole on Ubuntu 22.04
+
+Step 1 – Install Required Packages and Dependencies For Apache Guacamole
+First, you must run the system update by using the command below:
+# sudo apt update
+# sudo apt install build-essential libcairo2-dev libjpeg-turbo8-dev \
+    libpng-dev libtool-bin libossp-uuid-dev libvncserver-dev \
+    freerdp2-dev libssh2-1-dev libtelnet-dev libwebsockets-dev \
+    libpulse-dev libvorbis-dev libwebp-dev libssl-dev \
+    libpango1.0-dev libswscale-dev libavcodec-dev libavutil-dev \
+    libavformat-dev
+
+Step 2 – Download and Install Apache Guacamole From the Source
+At this point, you must visit the official downloads page and use the following wget command to download the latest source package of Apache Guacamole
+
+# sudo wget https://downloads.apache.org/guacamole/1.5.6/source/guacamole-server-1.5.6.tar.gz 
+Then, extract your download package and navigate to the Apache Guacamole directory with the following commands:
+
+# sudo tar -xvf guacamole-server-1.5.5.tar.gz
+# sudo cd guacamole-server-1.5.5
+Now you can build and install Apache Guacamole on Ubuntu 22.04. To do this, you can run the following commands:
+
+# sudo ./configure --with-init-dir=/etc/init.d --enable-allow-freerdp-snapshots
+# sudo make
+# sudo make install
+# sudo ldconfig
+
+step 3 : Start and Enable Apache Guacamole Server on Ubuntu 22.04
+At this point, you have learned to build and install Apache Guacamole on Ubuntu 22.04. Now you must reload the systemd to apply the changes:
+ # sudo systemctl daemon-reload
+
+step 4 : Then, start and enable the Guacamole server with the following commands:
+
+# sudo systemctl start guacd
+# sudo systemctl enable guacd
+
+step 5 : Also, you can verify Guacamole server is active and running on Ubuntu 22.04 with the following command:
+
+# sudo systemctl status guacd
+
+You should create the Guacamole configuration files and extensions. These files will used in the later steps. To do this, you can run:
+# sudo mkdir -p /etc/guacamole/{extensions,lib}
+
+step 4 :  Install the Guacamole Web App on Ubuntu 22.04
+At this point, you must install the Guacamole Web App on your Ubuntu 22.04. 
+It is the frontend interface of Apache Guacamole. To do this, you must install the Tomcat 9 by using the command below:
+
+# sudo apt install tomcat9 tomcat9-admin tomcat9-common tomcat9-user -y 
+
+Now you must move the Guacamole Web client to the Tomcat web directory. To do this, run the command below:
+# sudo mv guacamole-1.5.4.war /var/lib/tomcat9/webapps/guacamole.war
+
+To apply the changes, restart Apache Guacamole and Tomcat services:
+# sudo systemctl restart tomcat9 guacd
+
+step 5 : Configure Apache Guacamole Database Authentication
+At this point, you have learned to install Apache Guacamole on Ubuntu 22.04 and set up the client Web app. As you may know, Guacamole supports basic user authentication that is used for testing. In this guide, we want to use production-ready database authentication through MariaDB.
+
+First, install MariaDB on Ubuntu 22.04 with the command below:
+
+# sudo apt install mariadb-server -y
+
+Then, run the following command to secure your MariaDB installation and set up a password for it.
+# sudo mysql_secure_installation
+Once you are done, you need to install the MySQL Connector/J library and Guacamole JDBC authenticator plugin. To do this, you can download the Java connector with the command below:
+
+# sudo wget https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.26.tar.gz
+
+Then, you must extract the downloaded file and copy it to the /etc/guacamole/lib/ directory:
+
+# sudo tar -xf mysql-connector-java-8.0.26.tar.gz
+# sudo cp mysql-connector-java-8.0.26/mysql-connector-java-8.0.26.jar /etc/guacamole/lib/
+
+Next, you must download the Apache Guacamole JDBC AUTH Plugin. To do this, you can run the command below:
+
+# sudo wget https://downloads.apache.org/guacamole/1.5.4/binary/guacamole-auth-jdbc-1.5.5.tar.gz
+
+You should note that download the version with the Guacamole version you have installed.
+Now extract the downloaded file and copy it to /etc/guacamole/extensions/ directory:
+# sudo tar -xf guacamole-auth-jdbc-1.5.4.tar.gz
+# sudo mv guacamole-auth-jdbc-1.5.4/mysql/guacamole-auth-jdbc-mysql-1.5.4.jar /etc/guacamole/extensions/
+
+step 6 : Create a Guacamole Database and User
+At this point, you must log in to your MariaDB shell and create a user and database for Apache Guacamole on Ubuntu 22.04.
+First, log in to the MariaDB shell with the password you have configured it for:
+
+sudo mysql -u root -p
+From your MariaDB shell, run the commands below to create the user and database, and grant the privileges:
+
+> MariaDB [(none)]> CREATE DATABASE guac_db;
+> MariaDB [(none)]> CREATE USER 'guac_user'@'localhost' IDENTIFIED BY 'password';
+> MariaDB [(none)]> GRANT SELECT,INSERT,UPDATE,DELETE ON guac_db.* TO 'guac_user'@'localhost';
+> MariaDB [(none)]> FLUSH PRIVILEGES;
+
+Once you are done, exit from your MariaDB shell:
+> MariaDB [(none)]> EXIT;
+
+Import SQL Schema Files and Create Properties Files For Guacamole
+At this point, you must navigate to the MySQL Schema directory with the command below:
+# cd guacamole-auth-jdbc-1.5.4/mysql/schema
+
+From there, run the command below to import the SQL schema files to the MySQL database:
+# cat *.sql | mysql -u root -p guac_db
+Then, use your favorite text editor like Vi editor or Nano editor to create the properties file for Apache Guacamole:
+
+# sudo vi /etc/guacamole/guacamole.properties
+Add the following configuration settings to the file with your database credentials:
+# MySQL properties
+          mysql-hostname: 127.0.0.1
+          mysql-port: 3306
+          mysql-database: guac_db
+          mysql-username: guac_user
+          mysql-password: password           
+Once you are done, save and close the file.
+
+Once you are done, save and close the file.
+
+Finally, restart the services to apply the changes:
+
+# sudo systemctl restart tomcat9 guacd mysql
+
+Step 7 – Access Apache Guacamole From the Web Interface
+At this point, you have completed the steps to install Apache Guacamole on Ubuntu 22.04. Now you can access your Guacamole dashboard by following the URL below from your Web browser:
+
+http://server-ip:8080/guacamole
+You will see the Apache Guacamole Login screen. Enter the following credentials to log in:
+
+username: guacadmin
+password: guacadmin
 
 
-------------------------------------------------------------
- Reporting problems
-------------------------------------------------------------
+step 8: Create a New Admin User and Password For Apache Guacamole
+At this point, it is strongly recommended to create a new admin user and password and delete the default credentials. To do this, from the guacadmin profile click on Settings.
+hen, switch to the Users tab and click on New User.
 
-Please report any bugs encountered by opening a new issue in the JIRA system
-hosted at:
-    
-    https://issues.apache.org/jira/browse/GUACAMOLE/
+
+
 
