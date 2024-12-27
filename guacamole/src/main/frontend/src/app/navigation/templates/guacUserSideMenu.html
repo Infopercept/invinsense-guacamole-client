@@ -1,0 +1,19 @@
+<div class="user-menu" ng-show="!isAnonymous()">
+    <guac-menu>
+
+        <!-- Local actions -->
+        <!-- <ul class="action-list">
+            <li ng-repeat="action in localActions">
+                <a ng-class="action.className" ng-click="action.callback()">
+                    {{action.name | translate}}
+                </a>
+            </li>
+        </ul> -->
+
+        <!-- Navigation links -->
+        <guac-page-list pages="pages"></guac-page-list>
+
+        <guac-menu-list pages="settingsPages" class="submenu"></guac-menu-list>
+
+    </guac-menu>
+</div>

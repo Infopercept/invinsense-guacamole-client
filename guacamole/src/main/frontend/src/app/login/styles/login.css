@@ -63,24 +63,69 @@ div.login-ui {
 }
 
 .login-ui .login-fields .labeled-field .field-header {
-
   display: block;
-  position: absolute;
-  left: 0;
-  right: 0;
   overflow: hidden;
-
   z-index: -1;
   margin: 0.5em;
-  font-size: 0.9em;
+  font-size: 14px;
   opacity: 0.5;
 
 }
 
-.login-ui .login-fields .labeled-field.empty input {
-    background: transparent;
-}
 
-.login-ui .login-fields .labeled-field input:focus {
-    background: white;
+.w-34{width: 34%; position: relative; height: 100vh;     display: flex;
+        align-items: center;
+        justify-content: center;
+     }
+.login-outer{display: flex;background-color: #f2f2f2; width: 100%;}
+.login-outer .card{    background: #fff;  border-radius: 20px;  width: 90%;  max-width: 450px; box-shadow: none;}
+.login-outer .card-body{padding: 16px;}
+.w-66{width: 66%;   height: 100vh;}
+.bg-login{background: url("images/bg-login-purple.jpg") no-repeat center center;  background-size: cover; display: flex; justify-content: center ;}
+.powered-by{  position: absolute;  bottom: 20px;  color: #333;  font-size: 14px; text-align: center; width: 100%;
+}
+.powered-logo{
+    width: 100%;
+    max-width: 180px;
+    background: url(images/invinsence-logo.png) no-repeat 50% center;
+    background-size: 180px auto;
+    display: block;
+    height: 40px;
+    margin: 0 auto; }
+
+.login-outer .form-control{height: 50px; border-radius: 40px; background-color: #f2f2f7 !important; border-color: transparent;}
+.login-outer .form-group{margin-bottom: 10px;}
+.login-outer .btn{border-radius: 40px;  background-color: #DD3731; height: 40px; box-shadow: none; border: 0; }
+.login-outer .btn:hover{background-color: #fdd8d8; color: #11142d; border-color: transparent;}
+
+
+.login-dialog a.button, .login-dialog button, .login-dialog input[type=submit]{font-family: 'Roboto', sans-serif;
+    background-color: #AF52DE;
+    color: #fff;
+    border-radius: 40px;
+    border: 0;
+    box-shadow: none;
+    padding: 16px;
+    height: 50px;
+    font-size: 14px;
+    margin-bottom: 10px;
+    width: 100%;
+    text-transform: uppercase;
+    font-weight: 500;
+    outline: 0;
+    cursor: pointer;
+    letter-spacing: 1px;
+    display: block;
+    margin: 0 auto; line-height: normal; text-shadow: none !important; }
+
+.login-dialog input[type=submit]:hover,
+.login-dialog input[type=submit]:active {background-color: #F3E5FA; color: #231728;}
+
+
+
+@media (max-width: 1024px) {
+    .login-outer{display: block;}
+    .w-34,.w-66{width: 100%;}
+    .bg-login{display: none;}
+
 }

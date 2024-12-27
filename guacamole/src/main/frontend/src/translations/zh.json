@@ -4,7 +4,7 @@
     
     "APP" : {
 
-        "NAME"    : "Apache Guacamole",
+        "NAME"    : "OT Secure Access",
 
         "ACTION_ACKNOWLEDGE"        : "确定",
         "ACTION_CANCEL"             : "取消",

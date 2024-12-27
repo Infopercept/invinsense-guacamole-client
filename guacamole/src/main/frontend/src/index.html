@@ -25,9 +25,10 @@
         <meta name="mobile-web-app-capable" content="yes">
         <meta name="apple-mobile-web-app-capable" content="yes">
         <meta name="build" content="${guacamole.build.identifier}">
-        <link rel="icon" type="image/png" href="images/logo-64.png">
+        <!-- <link rel="icon" type="image/png" href="images/logo-64.png">
         <link rel="icon" type="image/png" sizes="144x144" href="images/logo-144.png">
-        <link rel="apple-touch-icon" type="image/png" href="images/logo-144.png">
+        <link rel="apple-touch-icon" type="image/png" href="images/logo-144.png"> -->
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico">
         <link rel="manifest" href="manifest.json">
 
         <!-- Web application CSS (bundled by Webpack) -->
@@ -35,8 +36,14 @@
         <link rel="stylesheet" type="text/css" href="<%= htmlWebpackPlugin.files.css[index] %>">
         <% } %>
 
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+
+
         <!-- Extension CSS (must be able to override webapp CSS) -->
         <link rel="stylesheet" type="text/css" href="app.css?b=${guacamole.build.identifier}">
+        
 
         <title ng-bind="page.title | translate"></title>
     </head>
@@ -93,8 +100,39 @@
                 <guac-notification notification="guacNotification.getStatus()"></guac-notification>
             </guac-modal>
 
-            <div id="content" ng-view>
-            </div>
+             <!-- Left Navigation Start -->
+
+             <header class="header">
+
+                <div class="logo">
+                    <a href="#"><img src="images/logo-guacamole-text.png" class="logo-text">
+                        <img src="images/logo-xdrplus.png" class="logo-text-hover"></a>
+
+                </div>
+
+                <guac-user-top-menu></guac-user-top-menu>
+             </header>
+
+             <div class="main-container-outer">
+
+                            <!-- Left Navigation Start -->
+
+                <div class="side-bar">
+                    <guac-user-side-menu></guac-user-side-menu>
+                    
+                </div>
+            <!-- Left Navigation End -->
+
+                <div class="main-container">
+                    <div id="content" ng-view>
+                    </div>
+                </div>
+
+
+             </div>
+
+     
+           
 
             <!-- All active connections -->
             <div id="other-connections">

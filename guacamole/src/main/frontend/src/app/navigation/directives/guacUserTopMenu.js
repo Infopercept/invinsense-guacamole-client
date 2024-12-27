@@ -21,7 +21,7 @@
  * A directive which provides a user-oriented menu containing options for
  * navigation and configuration.
  */
-angular.module('navigation').directive('guacUserMenu', [function guacUserMenu() {
+angular.module('navigation').directive('guacUserTopMenu', [function guacUserMenu() {
 
     return {
         restrict: 'E',
@@ -39,8 +39,7 @@ angular.module('navigation').directive('guacUserMenu', [function guacUserMenu() 
 
         },
 
-        // templateUrl: 'app/navigation/templates/guacUserMenu.html',
-        templateUrl: '',
+        templateUrl: 'app/navigation/templates/guacUserTopMenu.html',
         controller: ['$scope', '$injector',
             function guacUserMenuController($scope, $injector) {
 

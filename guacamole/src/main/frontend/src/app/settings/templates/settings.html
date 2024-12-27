@@ -5,10 +5,15 @@
         <guac-user-menu></guac-user-menu>
     </div>
 
+ 
+<!--Content area Start -->
+   
+
+
     <!-- Available tabs -->
-    <div class="page-tabs">
+    <!-- <div class="page-tabs">
         <guac-page-list pages="settingsPages"></guac-page-list>
-    </div>
+    </div> -->
 
     <!-- Selected tab -->
     <guac-settings-users                ng-if="activeTab === 'users'"></guac-settings-users>
@@ -17,5 +22,7 @@
     <guac-settings-connection-history   ng-if="activeTab === 'history'"></guac-settings-connection-history>
     <guac-settings-sessions             ng-if="activeTab === 'sessions'"></guac-settings-sessions>
     <guac-settings-preferences          ng-if="activeTab === 'preferences'"></guac-settings-preferences>
-
+ 
+<!--Content area End -->
+ 
 </div>

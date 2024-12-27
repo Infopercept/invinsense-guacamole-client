@@ -1,12 +1,15 @@
 <div class="preferences" ng-class="{loading: !isLoaded()}">
 
     <!-- Locale settings -->
+    <div class="theme-box">
     <div class="settings section locale">
         <p>{{'SETTINGS_PREFERENCES.HELP_LOCALE' | translate}}</p>
         <guac-form content="localeFields" model="preferences" namespace="'SETTINGS_PREFERENCES'"></guac-form>
     </div>
+</div> 
 
     <!-- Appearance -->
+    <div class="theme-box">
     <h2 class="header">{{'SETTINGS_PREFERENCES.SECTION_HEADER_APPEARANCE' | translate}}</h2>
     <div class="settings section appearance">
         <p>{{'SETTINGS_PREFERENCES.HELP_APPEARANCE' | translate}}</p>
@@ -23,8 +26,9 @@
             </table>
         </div>
     </div>
-
+</div>
     <!-- Password update -->
+    <div class="theme-box">
     <h2 class="header" ng-show="canUpdateSelf">{{'SETTINGS_PREFERENCES.SECTION_HEADER_UPDATE_PASSWORD' | translate}}</h2>
     <div class="settings section update-password" ng-show="canUpdateSelf">
         <p>{{'SETTINGS_PREFERENCES.HELP_UPDATE_PASSWORD' | translate}}</p>
@@ -51,9 +55,10 @@
         <div class="action-buttons">
             <button class="change-password" ng-click="updatePassword()">{{'SETTINGS_PREFERENCES.ACTION_UPDATE_PASSWORD' | translate}}</button>
         </div>
-    </div>
+    </div></div>
 
     <!-- Input method -->
+    <div class="theme-box">
     <h2 class="header">{{'SETTINGS_PREFERENCES.SECTION_HEADER_DEFAULT_INPUT_METHOD' | translate}}</h2>
     <div class="settings section input-method">
         <p>{{'SETTINGS_PREFERENCES.HELP_DEFAULT_INPUT_METHOD' | translate}}</p>
@@ -78,9 +83,10 @@
             </div>
 
         </div>
-    </div>
+    </div> </div>
 
     <!-- Mouse mode -->
+    <div class="theme-box">
     <h2 class="header">{{'SETTINGS_PREFERENCES.SECTION_HEADER_DEFAULT_MOUSE_MODE' | translate}}</h2>
     <div class="settings section mouse-mode">
         <p>{{'SETTINGS_PREFERENCES.HELP_DEFAULT_MOUSE_MODE' | translate}}</p>
@@ -105,9 +111,10 @@
             </div>
 
         </div>
-    </div>
+    </div></div>
     
     <!-- User attributes section -->
+    <div class="theme-box">
     <div class="attributes" ng-show="canUpdateSelf && attributes.length">
         <guac-form namespace="'USER_ATTRIBUTES'" content="attributes"
                    model="user.attributes"></guac-form>
@@ -115,5 +122,5 @@
         <!-- User attributes save button -->
         <button ng-show="attributes.length" ng-click="saveUser()" class="save">{{'SETTINGS_PREFERENCES.ACTION_SAVE' | translate}}</button>
     </div>
-
+</div>
 </div>
