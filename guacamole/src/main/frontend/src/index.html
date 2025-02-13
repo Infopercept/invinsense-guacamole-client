@@ -104,23 +104,16 @@
 
              <header class="header">
 
-                <div class="header-left">
                 <div class="logo">
                     <a href="#"><img src="images/logo-guacamole-text.png" class="logo-text">
                         <img src="images/logo-xdrplus.png" class="logo-text-hover"></a>
 
                 </div>
 
-                <a href="#" onclick="toggleSidebar()">
-                    
-                </a>
-                </div>
-                
-
                 <guac-user-top-menu></guac-user-top-menu>
              </header>
 
-             <div class="main-container-outer" id="side-bar">
+             <div class="main-container-outer">
 
                             <!-- Left Navigation Start -->
 
@@ -167,17 +160,6 @@
 
         <!-- Extension JavaScript -->
         <script type="text/javascript" src="app.js?b=${guacamole.build.identifier}"></script>
-
-        <script>
-            function toggleSidebar(){
-                let element = document.getElementById("side-bar");
-                if(element.classList.value.indexOf("open") > -1) {
-                    element.classList.remove("open");
-                } else {
-                    element.classList.add("open");
-                }
-            }
-        </script>
 
     </body>
 </html>
